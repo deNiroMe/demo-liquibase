@@ -1,0 +1,416 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.6.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <property  name="varchar.type"  value="CHARACTER VARYING"  dbms="h2"/>
+    <property  name="varchar.type"  value="VARCHAR(255)"  dbms="mysql"/>
+    <property  name="double.type"  value="NUMERIC"  dbms="h2"/>
+    <property  name="double.type"  value="DOUBLE"  dbms="mysql"/>
+    <property  name="varchar1.type"  value="CHARACTER"  dbms="h2"/>
+    <property  name="varchar1.type"  value="VARCHAR(1)"  dbms="mysql"/>
+    <property  name="boolean.type"  value="BOOLEAN"  dbms="h2"/>
+    <property  name="boolean.type"  value="BIT(1)"  dbms="mysql"/>
+
+    <changeSet author="Ahmed Douinir" id="1666123505138-1">
+        <createTable tableName="article" >
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="${varchar.type}"/>
+            <column name="purchase_price" type="${double.type}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reference" type="${varchar.type}"/>
+            <column name="sold_price" type="${double.type}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-2">
+        <createTable tableName="article_supplier">
+            <column name="article_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="supplier_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-3">
+        <createTable tableName="caisse_mouvement">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="date" type="date"/>
+            <column name="time" type="time"/>
+            <column name="input" type="DECIMAL(19, 2)"/>
+            <column name="output" type="DECIMAL(19, 2)"/>
+            <column name="type" type="${varchar.type}"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-4">
+        <createTable tableName="client">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="city" type="${varchar.type}"/>
+            <column name="name" type="${varchar.type}"/>
+            <column name="phone_number" type="${varchar.type}"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-5">
+        <createTable tableName="client_paiement">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="date" type="date"/>
+            <column name="paiement_method" type="${varchar.type}"/>
+            <column name="payed" type="${double.type}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="time"/>
+            <column name="client_id" type="BIGINT"/>
+            <column name="commercial_id" type="BIGINT"/>
+            <column name="comment" type="${varchar.type}"/>
+            <column name="retour" type="${double.type}"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-6">
+        <createTable tableName="commercial">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="city" type="${varchar.type}"/>
+            <column name="name" type="${varchar.type}"/>
+            <column name="phone_number" type="${varchar.type}"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-7">
+        <createTable tableName="demo_liquibase_table">
+            <column name="name" type="VARCHAR(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-8">
+        <createTable tableName="expenses">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="date" type="date"/>
+            <column name="expenses_details" type="${varchar.type}"/>
+            <column name="time" type="time"/>
+            <column name="total" type="${double.type}"/>
+            <column name="type" type="${varchar.type}"/>
+            <column name="commercial_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-9">
+        <createTable tableName="hibernate_sequence">
+            <column name="next_val" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-10">
+        <createTable tableName="operation">
+            <column name="type" type="${varchar1.type}">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="date" type="date"/>
+            <column name="price" type="${double.type}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="time"/>
+            <column name="purchase_price" type="${double.type}"/>
+            <column name="product_id" type="BIGINT"/>
+            <column name="purchase_order_id" type="BIGINT"/>
+            <column name="order_id" type="BIGINT"/>
+            <column name="new_phone" type="${boolean.type}"/>
+            <column name="notes" type="${varchar.type}"/>
+            <column name="phone_order_operation" type="${boolean.type}"/>
+            <column name="phone_type" type="${varchar.type}"/>
+            <column name="serial_number" type="${varchar.type}"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-11">
+        <createTable tableName="order_table">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="date" type="date"/>
+            <column name="paiement_method" type="${varchar.type}"/>
+            <column name="payed" type="${double.type}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="time"/>
+            <column name="client_id" type="BIGINT"/>
+            <column name="commercial_id" type="BIGINT"/>
+            <column name="remise" type="${double.type}"/>
+            <column name="retour" type="${double.type}"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-12">
+        <createTable tableName="paiement_order">
+            <column name="amount" type="${double.type}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="client_paiement_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-13">
+        <createTable tableName="paiement_purchase">
+            <column name="amount" type="${double.type}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="supplier_paiement_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="purchase_order_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-14">
+        <createTable tableName="purchase_order">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="date" type="date"/>
+            <column name="paiement_method" type="${varchar.type}"/>
+            <column name="payee" type="${double.type}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="time"/>
+            <column name="commercial_id" type="BIGINT"/>
+            <column name="supplier_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-15">
+        <createTable tableName="roles">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="comment" type="${varchar.type}"/>
+            <column name="name" type="${varchar.type}"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-16">
+        <createTable tableName="supplier">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="city" type="${varchar.type}"/>
+            <column name="name" type="${varchar.type}"/>
+            <column name="phone_number" type="${varchar.type}"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-17">
+        <createTable tableName="supplier_paiement">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="date" type="date"/>
+            <column name="paiement_method" type="${varchar.type}"/>
+            <column name="payed" type="${double.type}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="time" type="time"/>
+            <column name="commercial_id" type="BIGINT"/>
+            <column name="supplier_id" type="BIGINT"/>
+            <column name="comment" type="${varchar.type}"/>
+            <column name="retour" type="${double.type}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-18">
+        <createTable tableName="user">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="password" type="${varchar.type}"/>
+            <column name="username" type="${varchar.type}"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-19">
+        <createTable tableName="user_roles">
+            <column name="users_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="roles_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-20">
+        <insert tableName="article">
+            <column name="id" valueNumeric="859"/>
+            <column name="name" value="kit 7g og "/>
+            <column name="purchase_price" valueNumeric="90.0"/>
+            <column name="reference" value=""/>
+            <column name="sold_price" valueNumeric="105.0"/>
+        </insert>
+        <insert tableName="article">
+            <column name="id" valueNumeric="860"/>
+            <column name="name" value="cable ip 11pro"/>
+            <column name="purchase_price" valueNumeric="28.0"/>
+            <column name="reference" value=""/>
+            <column name="sold_price" valueNumeric="32.0"/>
+        </insert>
+        <insert tableName="article">
+            <column name="id" valueNumeric="861"/>
+            <column name="name" value="cable typc/typc "/>
+            <column name="purchase_price" valueNumeric="28.0"/>
+            <column name="reference" value=""/>
+            <column name="sold_price" valueNumeric="32.0"/>
+        </insert>
+        <insert tableName="article">
+            <column name="id" valueNumeric="862"/>
+            <column name="name" value="kit victoria "/>
+            <column name="purchase_price" valueNumeric="12.5"/>
+            <column name="reference" value=""/>
+            <column name="sold_price" valueNumeric="13.5"/>
+        </insert>
+        <insert tableName="article">
+            <column name="id" valueNumeric="863"/>
+            <column name="name" value="kit mi "/>
+            <column name="purchase_price" valueNumeric="14.0"/>
+            <column name="reference" value=""/>
+            <column name="sold_price" valueNumeric="16.0"/>
+        </insert>
+        <insert tableName="article">
+            <column name="id" valueNumeric="864"/>
+            <column name="name" value="kit oppo/hw/nia"/>
+            <column name="purchase_price" valueNumeric="9.0"/>
+            <column name="reference" value=""/>
+            <column name="sold_price" valueNumeric="10.5"/>
+        </insert>
+        <insert tableName="article">
+            <column name="id" valueNumeric="865"/>
+            <column name="name" value="charger note10"/>
+            <column name="purchase_price" valueNumeric="78.0"/>
+            <column name="reference" value=""/>
+            <column name="sold_price" valueNumeric="85.0"/>
+        </insert>
+        <insert tableName="article">
+            <column name="id" valueNumeric="866"/>
+            <column name="name" value="kit huawie hm"/>
+            <column name="purchase_price" valueNumeric="9.5"/>
+            <column name="reference" value=""/>
+            <column name="sold_price" valueNumeric="12.0"/>
+        </insert>
+        <insert tableName="article">
+            <column name="id" valueNumeric="867"/>
+            <column name="name" value="airpodr pro5s"/>
+            <column name="purchase_price" valueNumeric="200.0"/>
+            <column name="reference" value=""/>
+            <column name="sold_price" valueNumeric="220.0"/>
+        </insert>
+        <insert tableName="article">
+            <column name="id" valueNumeric="868"/>
+            <column name="name" value="airpod pro4"/>
+            <column name="purchase_price" valueNumeric="115.0"/>
+            <column name="reference" value=""/>
+            <column name="sold_price" valueNumeric="125.0"/>
+        </insert>
+        <insert tableName="article">
+            <column name="id" valueNumeric="869"/>
+            <column name="name" value="airpod a10s"/>
+            <column name="purchase_price" valueNumeric="90.0"/>
+            <column name="reference" value=""/>
+            <column name="sold_price" valueNumeric="100.0"/>
+        </insert>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-21">
+        <createIndex indexName="FK45qdixgtn84q8aulwt0xgj81m" tableName="order_table">
+            <column name="client_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-22">
+        <createIndex indexName="FK4traogu3jriq9u7e8rvm86k7i" tableName="purchase_order">
+            <column name="supplier_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-23">
+        <createIndex indexName="FK9pa53qpwkhp13rmh036xkwrwt" tableName="order_table">
+            <column name="commercial_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-24">
+        <createIndex indexName="FKbpjpxap3ja1flkwr0wuc0wvfh" tableName="expenses">
+            <column name="commercial_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-25">
+        <createIndex indexName="FKcg0elpftvbe66sqbewj4v9n8x" tableName="operation">
+            <column name="order_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-26">
+        <createIndex indexName="FKdbv8tdyltxa1qjmfnj9oboxse" tableName="user_roles">
+            <column name="roles_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-27">
+        <createIndex indexName="FKdt9v4h39o9oxmw3ebnhwb4fd1" tableName="operation">
+            <column name="product_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-28">
+        <createIndex indexName="FKeso975743f2xa9xfxdneaqji1" tableName="supplier_paiement">
+            <column name="supplier_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-29">
+        <createIndex indexName="FKgiondd2o159j5aifocgfirvio" tableName="paiement_order">
+            <column name="client_paiement_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-30">
+        <createIndex indexName="FKm1gyi0t2ywspkdc8mx3bptl37" tableName="paiement_purchase">
+            <column name="purchase_order_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-31">
+        <createIndex indexName="FKmxbt6xcboahx7hlfi3d4q8x44" tableName="article_supplier">
+            <column name="supplier_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-32">
+        <createIndex indexName="FKpo6cnswilhtl010rn54nykbka" tableName="client_paiement">
+            <column name="client_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-33">
+        <createIndex indexName="FKq66y8u01qap75de9n3o39cqmr" tableName="supplier_paiement">
+            <column name="commercial_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-34">
+        <createIndex indexName="FKqbitu8936yh2w1uk1iap92y9a" tableName="operation">
+            <column name="purchase_order_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-35">
+        <createIndex indexName="FKqcc5u1cihlqbjohlgr3p52s3a" tableName="article_supplier">
+            <column name="article_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-36">
+        <createIndex indexName="FKrhbxxmshy26jexmv3dik34lyc" tableName="purchase_order">
+            <column name="commercial_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Ahmed Douinir" id="1666123505138-37">
+        <createIndex indexName="FKwa5fonrvx3wlxq2n1o9fxe92" tableName="client_paiement">
+            <column name="commercial_id"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>
